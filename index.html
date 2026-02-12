@@ -13,14 +13,15 @@
 <body>
 
 <script>
-  let colors = ["#FF0000", "#000000"]; // rouge / noir
+  let colors = ["#FF0020", "#FFFFFFF"]; // rouge / noir
   let i = 0;
 
   setInterval(function() {
     document.body.style.backgroundColor = colors[i];
     i = (i + 1) % colors.length;
-  }, 500); // vitesse du clignotement (500ms)
+  }, 1000); // vitesse du clignotement (500ms)
 </script>
 
 </body>
 </html>
+
