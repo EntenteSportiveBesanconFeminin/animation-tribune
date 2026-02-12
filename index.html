@@ -11,12 +11,16 @@
 
 <script>
   const colors = ["#FF0020", "#FFFFFF"]; // rouge / blanc
-  const interval = 300; // ms
+  const interval = 350; // durée d'une couleur en ms
+
+  // Obtenir minuit du jour en cours
+  const now = new Date();
+  const startTime = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 0, 0, 0).getTime();
 
   function updateColor() {
-    const now = Date.now();
-    // Combien d'intervalles se sont écoulés depuis le 1er janvier 1970
-    const index = Math.floor(now / interval) % colors.length;
+    const current = Date.now();
+    const elapsed = current - startTime; // ms écoulés depuis minuit
+    const index = Math.floor(elapsed / interval) % colors.length;
     document.body.style.backgroundColor = colors[index];
     requestAnimationFrame(updateColor);
   }
@@ -26,7 +30,3 @@
 
 </body>
 </html>
-
-
-
-
