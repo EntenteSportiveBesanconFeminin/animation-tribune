@@ -1,5 +1,26 @@
 <!DOCTYPE html>
 <html>
-<head><meta charset="UTF-8"></head>
-<body style="margin:0; background:#FF0020;"></body>
+<head>
+<meta charset="UTF-8">
+<title>Animation Tribunes</title>
+<style>
+  body {
+    margin: 0;
+    background-color: red;
+  }
+</style>
+</head>
+<body>
+
+<script>
+  let colors = ["#FF0000", "#000000"]; // rouge / noir
+  let i = 0;
+
+  setInterval(function() {
+    document.body.style.backgroundColor = colors[i];
+    i = (i + 1) % colors.length;
+  }, 500); // vitesse du clignotement (500ms)
+</script>
+
+</body>
 </html>
