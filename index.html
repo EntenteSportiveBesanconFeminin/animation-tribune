@@ -2,42 +2,45 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Animation Tribunes Synchronisée</title>
+<title>Animation Tribunes</title>
 <style>
-  body { margin:0; }
+  body {
+    margin: 0;
+  }
 </style>
 </head>
 <body>
 
 <script>
   const colors = ["#FF0020", "#FFFFFF"]; // rouge / blanc
-  const interval = 500; // durée d'une couleur en ms
-  let t0 = null; // temps central synchronisé
+  const interval = 400; // durée d'une couleur en ms
 
-  // Récupérer l'heure UTC depuis un serveur public
+  // Fonction pour récupérer l'heure UTC depuis un serveur public
   async function fetchUTCTime() {
     try {
       const response = await fetch("https://worldtimeapi.org/api/timezone/Etc/UTC");
       const data = await response.json();
-      t0 = data.unixtime * 1000; // ms depuis 1970
-      requestAnimationFrame(updateColor); // on lance l'animation
+      const t0 = data.unixtime * 1000; // ms depuis 1970
+
+      // Lancer l'animation
+      requestAnimationFrame(() => updateColor(t0));
     } catch (error) {
-      console.error("Impossible de récupérer l'heure UTC, utilisation locale :", error);
-      t0 = Date.now(); // fallback
-      requestAnimationFrame(updateColor);
+      console.error("Impossible de récupérer l'heure UTC, fallback sur horloge locale :", error);
+      const t0 = Date.now();
+      requestAnimationFrame(() => updateColor(t0));
     }
   }
 
-  // Fonction qui calcule la couleur à afficher à chaque frame
-  function updateColor() {
+  // Fonction qui calcule la couleur actuelle en fonction du temps UTC
+  function updateColor(t0) {
     const now = Date.now();
     const elapsed = now - t0; // ms écoulés depuis t0
     const index = Math.floor(elapsed / interval) % colors.length;
     document.body.style.backgroundColor = colors[index];
-    requestAnimationFrame(updateColor);
+    requestAnimationFrame(() => updateColor(t0));
   }
 
-  fetchUTCTime(); // récupère le temps et démarre l'animation
+  fetchUTCTime(); // démarre le processus
 </script>
 
 </body>
