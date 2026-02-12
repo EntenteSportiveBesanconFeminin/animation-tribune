@@ -2,27 +2,27 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Animation Tribunes</title>
+<title>Animation Tribunes Synchronisée</title>
 <style>
-  body {
-    margin: 0;
-    background-color: red;
-  }
+  body { margin:0; }
 </style>
 </head>
 <body>
 
 <script>
-  let colors = ["#FF0020", "#FFFFFF"]; // rouge / noir
-  let i = 0;
+  const colors = ["#FF0020", "#FFFFFF"]; // rouge / blanc
+  const interval = 2000; // ms
 
-  setInterval(function() {
-    document.body.style.backgroundColor = colors[i];
-    i = (i + 1) % colors.length;
-  }, 1000); // vitesse du clignotement (500ms)
+  function updateColor() {
+    const now = Date.now();
+    // Combien d'intervalles se sont écoulés depuis le 1er janvier 1970
+    const index = Math.floor(now / interval) % colors.length;
+    document.body.style.backgroundColor = colors[index];
+    requestAnimationFrame(updateColor);
+  }
+
+  updateColor();
 </script>
 
 </body>
 </html>
-
-
